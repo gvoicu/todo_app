@@ -1,0 +1,21 @@
+<h2>New Task</h2>
+
+<!--
+ form_tag => <form action"/todos/create">
+ label_tag => <label>...</label>
+ text_field_tag => <input type="text" value="" />
+ select_tag => <select><option></option><option></option></select>
+ submit_tag => <input type="submit" />
+-->
+
+<%= form_tag "/todos/create" do %>
+  <%= label_tag :title %>
+  <%= text_field_tag :title %>
+  <br />
+
+  <%= label_tag :assigned_to %>
+  <%= select_tag :assigned_to, options_for_select(["Cazanescu", "Munteanu"]) %>
+  <br />
+
+  <%= submit_tag "Create" %>
+<% end %>
