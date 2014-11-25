@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-  
+
   get "/todos", to: "todos#index"
   get "/todos/new", to: "todos#new"
-  post "/todos/create", to: "todos#create"
+  post "/todos", to: "todos#create"
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'todos#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

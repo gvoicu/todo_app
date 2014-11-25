@@ -4,11 +4,9 @@
 <br />
 
 <ul>
-  <%# for todo in @todos %>
   <% @todos.each do |todo| %>
     <li>
-      <%= todo[:title] %>
-      <%= todo['title'] %>
+      <%= todo.title %>
     </li>
   <% end %>
 </ul>

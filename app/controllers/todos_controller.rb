@@ -1,25 +1,28 @@
 class TodosController < ApplicationController
   # action
   def index
-    if session[:todos].nil?
-      session[:todos] = []
-    end
-
-    @todos = session[:todos]
+    @todos = Todo.all
   end
 
   def new
-
+    @todo = Todo.new
   end
 
   def create
-    new_todo = {
-                :title => params[:title],
-                :assigned_to => params[:assigned_to]
-               }
 
-    session[:todos] << new_todo
+    todo = Todo.new(todo_params)
+    if todo.save
+      flash[:notice] = "Todo was saved successfully"
+    else
+      flash[:notice] = "Unfortunately there were some errors while saving the todo: #{todo.errors.to_s}"
+    end
 
     redirect_to "/todos"
+  end
+
+  private
+
+  def todo_params
+    params.require(:todo).permit(:title)
   end
 end

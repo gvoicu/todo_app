@@ -1,21 +1,13 @@
 <h2>New Task</h2>
 
-<!--
- form_tag => <form action"/todos/create">
- label_tag => <label>...</label>
- text_field_tag => <input type="text" value="" />
- select_tag => <select><option></option><option></option></select>
- submit_tag => <input type="submit" />
--->
-
-<%= form_tag "/todos/create" do %>
-  <%= label_tag :title %>
-  <%= text_field_tag :title %>
+<%= form_for @todo do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
   <br />
 
-  <%= label_tag :assigned_to %>
-  <%= select_tag :assigned_to, options_for_select(["Cazanescu", "Munteanu"]) %>
+  <%#= f.label :user_id, "Assigned To" %>
+  <%#= f.select :user_id, options_from_collection_for_select(User.all, 'id', 'name') %>
   <br />
 
-  <%= submit_tag "Create" %>
+  <%= f.submit "Create" %>
 <% end %>
