@@ -9,8 +9,21 @@ class TodosController < ApplicationController
   end
 
   def create
+    #Parameters: {"utf8"=>"✓", "authenticity_token"=>"44yU6B3tCRzEW360qqG4H/tScGWlOm1bXp7ODGH1AWA=", 
+    #  "todo"=>{"title"=>"sada"}, "commit"=>"Create"}
+    # params[:todo][:title] => "sada"
 
-    todo = Todo.new(todo_params)
+    # Versiunea 1
+    # todo = Todo.new(:title => params[:todo][:title])
+
+    # Versiunea 2
+    # todo_params = params.require(:todo).permit(:title)
+    # todo = Todo.new(todo_params)
+
+    # Versiunea 3
+    todo = Todo.new
+    todo.title = params[:todo][:title]
+
     if todo.save
       flash[:notice] = "Todo was saved successfully"
     else
