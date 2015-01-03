@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  order: 
+  dish: 
+  time: 
+  note: MyString
+  dish_status: 
+
+two:
+  order: 
+  dish: 
+  time: 
+  note: MyString
+  dish_status: 

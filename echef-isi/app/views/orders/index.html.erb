@@ -1,0 +1,35 @@
+<div class="tabbable">
+<h3>Listing orders</h3>
+<hr/>
+
+
+<table>
+	<thead>
+	  <tr>
+	  	<th>Order number</th>
+	    <th>Open at</th>
+	    <th>Closed at</th>
+	    <th>Table</th>
+	    <th>Total</th>
+	  </tr>
+  </thead>
+
+  <% @orders.each do |order| %>
+    <tr>
+    	<td><%= order.id %></td>
+      <td><%= order.created_at %></td>
+      <td><%= order.closed_at || "Still open" %></td>
+      <td><center><%= order.table.number %></center></td>
+      <td>
+      	<% total = 0 %>
+      	<% OrderDish.where(:order_id => order.id).each do |od|
+      		total = total + Dish.find(od.dish_id).price
+      	end %>
+      	<%= total %>
+      </td>
+      <td><%= link_to "View", "orders/#{order.id}" %></td>
+    </tr>
+  <% end %>
+</table>
+
+</div>

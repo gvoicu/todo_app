@@ -1,0 +1,32 @@
+<div class="tabbable" style="text-align: center">
+	
+<p id="notice"><%= notice %></p>
+
+<h3><%= @dish.name %></h3>
+
+<hr/>
+
+<p>
+	<%= image_tag @dish.photo.url, :style => 'max-width: 90%' %>
+</p>
+
+<p>
+  <strong><%= @dish.ingredients %></strong>
+</p>
+
+<p>
+  <b>Grams:</b>
+  <%= @dish.grams %>
+
+&nbsp;&nbsp;|&nbsp;&nbsp;
+
+  <b>Price:</b>
+  <%= @dish.price %>
+
+&nbsp;&nbsp;|&nbsp;&nbsp;
+
+  <b>Preparing Time:</b>
+  <%= @dish.time %>
+</p>
+
+</div>

@@ -1,0 +1,23 @@
+<%= form_for(@dish_type, :html => {:class => 'form-horizontal'}) do |f| %>
+  <% if @dish_type.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@dish_type.errors.count, "error") %> prohibited this dish_type from being saved:</h2>
+
+      <ul>
+      <% @dish_type.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :name, :class => "control-label"  %>
+    <div class="controls">
+    <%= f.text_field :name , :class => "input-large" %>
+    </div>
+  </div>
+  <div class="form-actions">
+    <%= f.button "Submit", :class => "btn", :type => "submit" %>
+  </div>
+<% end %>

@@ -1,0 +1,97 @@
+<div class="row">
+     <div class="span12">
+
+        <!-- Careers starts -->
+
+        <div class="career">
+        	
+           <div class="row">
+              <div class="span12">
+
+              <% if @order %>
+	              <div class="menu-actions">
+	                <%= link_to 'View Order', 'order', method: :get %> |
+	
+	                  <% if @notif %>
+	                    <span>Waiter called.</span>
+	                  <% elsif %>
+	                    <span id="call-waiter"><%= link_to 'Call waiter', 'order/waiter', method: :post, :remote => true %></span>
+	                  <% end %>
+	              </div>
+              <% end %>
+              
+              <% if current_user and current_user.admin? %>
+              	<div class="menu-actions">
+              			<%= link_to "Dish Types", dish_types_path %>
+              			|
+              			<span><%= link_to "New Dish", new_dish_path %></span>
+              	</div>
+              <% end %>
+				
+                <div class="tabbable tabs-left">
+                		<h3>Dishes</h3>
+                		<hr/>
+                   <!-- Tabs -->
+                  <ul class="nav nav-tabs">
+                    <!-- Navigation tabs (Job titles ). Use unique value in anchor tags. -->
+                    <% DishType.all.each do |dish_type|%>
+                    	<li><a href="#tab<%=dish_type.id %>" data-toggle="tab"><%= dish_type.name%></a></li>
+                    <% end %>
+                  </ul>
+                  <div class="tab-content">
+	                  <% DishType.all.each do |dish_type| %>
+	                   <!-- In "id", use the value which you used in above anchor tags -->
+	                    <div class="tab-pane" id="tab<%=dish_type.id %>">
+	                      <!-- Content -->
+	                      <table>
+	                      	<thead>
+							  <tr>
+							  	<th>Photo</th>
+							  	<th>Name</th>
+							    <th>Ingredients</th>
+							    <th>Grams</th>
+							    <th>Price</th>
+							    <th>Time</th>
+							    <% if @order %>
+							    	<th></th>
+							    <% end %>
+							  </tr>
+							  </thead>
+							  <% Dish.where(:dish_type_id => dish_type.id).order("name ASC").each do |dish| %>
+								  <tr>
+								  	<td><%= link_to image_tag(dish.photo.url), dish, :target => "_blank" %></td>
+								  	<td><%= dish.name %></td>
+								    <td><%= dish.ingredients %></td>
+								    <td><%= dish.grams %></td>
+								    <td><%= dish.price %></td>
+								    <td><%= dish.time %></td>
+								    <% if @order %>
+								    	<td><div class="button"><%= link_to 'Add', 'order/add/%s' % dish.id, :class => 'add-in-order', :method => :post, :remote => true, :tag => dish.id, :confirm => "Are you sure you want to add '%s' to your order?" % dish.name %></div></td>
+								   	<% end %>
+								   	<% if user_signed_in? and current_user.admin? %>
+								   		<td><div class="button"><%= link_to 'Edit', edit_dish_path(dish), :target => "_blank" %></div></td>
+								   	<% end %>
+								  </tr>
+								<% end %>
+                      	</table>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+           </div>
+        </div>	
+     </div>
+  </div>
+
+<script type="text/javascript" ">
+	$(function(){
+		$('.add-in-order').click(function(e){
+			e.preventDefault();
+		});
+		
+		$('.nav-tabs li:first-child a').trigger('click');
+		
+		$('.nav-tabs li a[href="' + document.location.hash + '"]').trigger('click');
+	});
+</script>

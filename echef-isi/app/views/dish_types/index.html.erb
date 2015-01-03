@@ -1,0 +1,26 @@
+<div class="tabbable">
+<h3>Listing dish_types</h3>
+<hr/>
+
+<table>
+	<thead>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+
+<% @dish_types.each do |dish_type| %>
+  <tr>
+    <td><%= dish_type.name %></td>
+    <td><%= link_to 'Edit', edit_dish_type_path(dish_type) %></td>
+    <td><%= link_to 'Delete', dish_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<div class="button"><%= link_to "New Dish Type", new_dish_type_path %></div>
+
+</div>

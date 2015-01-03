@@ -1,0 +1,10 @@
+<% if current_user %>
+	<% if current_user.admin? %>
+		<%= link_to("Bookings", bookings_path, :method => :get) %> | 
+		<%= link_to("Menu", dishes_path, :method => :get) %> | 
+		<%= link_to("Tables", tables_path, :method => :get) %> |
+		<%= link_to("Users", users_path, :method => :get) %> | 
+	<% end %>
+	<%= link_to("Sign out", destroy_user_session_path, :method => :delete) %>
+<% end %>
+

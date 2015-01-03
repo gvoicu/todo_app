@@ -1,0 +1,41 @@
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="span4">
+         <!-- Widget 1 -->
+         <div class="widget">
+            <h4>Twitter</h4>
+            <!-- Too add twitter widget, goto "js" folder and open "custom.js" file and search for the word "ashokramesh90". This is my twitter username. Just replace the word with your twitter username. You are done. -->
+            <div class="tweet"></div>
+         </div>
+      </div>
+      <div class="span4">
+         <!-- widget 2 -->
+         <div class="widget">
+            <h4>New Dishes	</h4>
+               <ul>
+               		<% Dish.order("updated_at DESC").limit(5).each do |dish| %>
+                  	<li><a href="/dish/<%= dish.id %>"><%= dish.name %></a></li>
+                  <% end %>
+               </ul>
+         </div>
+      </div>
+      <div class="span4">
+         <!-- Widget 3 -->
+         <div class="widget">
+            <h4>Dish Types</h4>
+            <ul>
+            	<% DishType.order("name ASC").each do |dishType| %>
+               <li><a href="/menu#tab<%= dishType.id %>"><%= dishType.name %></a></li>
+              <% end %>
+            </ul>
+         </div>
+      </div>
+      
+      <div class="span12"><hr /><p class="copy">
+      <!-- Copyright information. You can remove my site link. -->
+               Copyright &copy; <a href="#">e-Chef</a></p></div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,66 @@
+
+<%= form_for(@dish, {:html => {:class => 'form-horizontal'}}) do |f| %>
+  <% if @dish.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+        <% @dish.errors.full_messages.each do |msg| %>
+	        <li><%= msg %></li>
+	      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+	<div class="control-group">
+		<%= f.label :photo , :class => "control-label"  %>
+    <div class="controls">
+		<%= f.file_field :photo , :class => "input-large" %>
+    </div>
+	</div>
+	
+	<div class="control-group">
+    <%= f.label :name , :class => "control-label"  %>
+    <div class="controls">
+    <%= f.text_field :name , :class => "input-large" %>
+    </div>
+  </div>
+  
+  <div class="control-group">
+    <%= f.label :ingredients , :class => "control-label"  %>
+    <div class="controls">
+    <%= f.text_field :ingredients , :class => "input-large" %>
+    </div>
+  </div>
+  
+  <div class="control-group">
+    <%= f.label :grams , :class => "control-label"  %>
+    <div class="controls">
+    <%= f.number_field :grams , :class => "input-large" %>
+    </div>
+  </div>
+  
+  <div class="control-group">
+    <%= f.label :price , :class => "control-label"  %>
+    <div class="controls">
+    <%= f.text_field :price , :class => "input-large" %>
+    </div>
+  </div>
+  
+  <div class="control-group">
+    <%= f.label :time , :class => "control-label"  %>
+    <div class="controls">
+    <%= f.text_field :time , :class => "input-large" %>
+    </div>
+  </div>
+  
+  <div class="control-group">
+    <%= f.label :dish_type , :class => "control-label"  %>
+    <div class="controls">
+    <%= f.collection_select(:dish_type_id, DishType.all, :id, :name)%>
+    </div>
+  </div>
+  
+  <div class="form-actions">
+    <%= f.button "Submit", :class => "btn", :type => "submit" %>
+  </div>
+<% end %>
+

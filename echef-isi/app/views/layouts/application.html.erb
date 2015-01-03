@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>e-Chef</title>
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Oswald:400,700' rel='stylesheet' type='text/css'>
+
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+
+    <!-- HTML5 Support for IE -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shim.js"></script>
+    <![endif]-->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/favicon.png">
+  </head>
+  <body>
+
+    <%= render :partial =>  "/shared/header"%>
+    <%= render :partial => "/shared/nav"%>
+
+    <div class="content">
+      <div class="container">
+        <%= yield %>
+      </div>
+    </div>
+
+    <%= render "/shared/footer"%>
+
+    <script type="text/javascript">
+    	
+    	function getNoti(){
+    		$.get('/notifications/count', function(data){
+    			if (data != 0)
+    				$('#notifications-count').html('('+ data +')')
+    			else
+    				$('#notifications-count').html('')
+    		})
+    	}
+    
+      $(window).load(function() {
+        $('.flexslider').flexslider({
+          animation: "slide",
+          controlNav: true,
+          pauseOnHover: true,
+          slideshowSpeed: 15000
+        });
+        
+        <% if user_signed_in? and (current_user.chef? or current_user.waiter?) %>
+        	getNoti();
+        	setInterval(getNoti, 15000 );
+        <% end %> 
+      });
+    </script>
+  </body>
+</html>

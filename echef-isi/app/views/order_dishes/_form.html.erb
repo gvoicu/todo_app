@@ -1,0 +1,37 @@
+<%= form_for(@order_dish) do |f| %>
+  <% if @order_dish.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@order_dish.errors.count, "error") %> prohibited this order_dish from being saved:</h2>
+
+      <ul>
+      <% @order_dish.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :order %><br />
+    <%= f.text_field :order %>
+  </div>
+  <div class="field">
+    <%= f.label :dish %><br />
+    <%= f.text_field :dish %>
+  </div>
+  <div class="field">
+    <%= f.label :time %><br />
+    <%= f.text_field :time %>
+  </div>
+  <div class="field">
+    <%= f.label :note %><br />
+    <%= f.text_field :note %>
+  </div>
+  <div class="field">
+    <%= f.label :dish_status %><br />
+    <%= f.text_field :dish_status %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

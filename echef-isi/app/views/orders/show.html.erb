@@ -1,0 +1,68 @@
+<div class="tabbable">
+	
+	<h3>Order <%= @order.id %></h3>
+	<hr/>
+
+<table style="width: 100%; font-size: 15px;">
+	<thead>
+  <tr>
+    <td><strong>Dish Name</strong></td>
+    <td><strong>Dish Status</strong></td>
+    <td><strong>Remaining Time</strong></td>
+    <% if current_user and current_user.chef? %>
+      <td><strong>New Time</strong></td>
+    <% end %>
+  </tr>
+  </thead>
+  
+  <% @order_dishes.each do |order_dish| %>
+    <tr>
+      <td>
+        <%= order_dish.dish.name %>
+      </td>
+      <td>
+        <%= raw display_dish_action(order_dish) %>
+      </td>
+       <td id="order_dish-<%= order_dish.id %>">
+       	<% if order_dish.dish_status == Constant::DS_PREPARING %>
+        	<%= ((order_dish.updated_at + order_dish.time.minutes - Time.now)/60).floor %>
+        <% else %>
+        	-
+        <% end %>
+      </td>
+
+      <% if current_user and current_user.chef? %>
+        <td style="font-size: 15px;">
+          <%= form_tag ({:action => "change_order_time"}), ({:remote => true, :style => "margin-top: 20px;"}) do %>
+            <%= number_field_tag :time, (((order_dish.updated_at + order_dish.time.minutes - Time.now)/60).floor), :min => 1, :style => "width: 40px;" %>
+            <%= hidden_field_tag :id, order_dish.id %>
+            <%= submit_tag :change, :style => "margin-top: -10px;" %>
+          <% end %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+
+<div class="order-buttons">
+	<% if current_user and (current_user.waiter? || current_user.admin?) %>
+	  <% if @order.is_payed? and @order.is_open? %>
+	    <div class="button"><%= link_to "Close", "/mark_as_closed?order_id=#{@order.id}" %></div>
+	  <% elsif OrderDish.where(:order_id => @order.id, :dish_status => Constant::DS_CHECK).any? %>
+	    <div class="button"><%= link_to "Pay", "/mark_as_payed?id=#{@order.id}" %></div>
+	  <% end %>
+	  <% if @order.is_open? %>
+		  <div class="button"><%= link_to "Edit", "/menu/#{@order.table.qr_code}" %></div>
+	  <% end %>
+	<% end %>
+</div>
+
+<div class="totals">
+		<% if !@order.is_open? %>
+  		</p><strong>Closed at:</strong><%= @order.closed_at %></p>
+  	<% end %>
+  	<p><strong>Table:</strong> <%= @order.table.number %></p>
+		<p><strong>Total Sum: <%= @order.calculate_total_sum %></strong></p>
+</div>
+
+</div>
