@@ -1,6 +1,0 @@
-var x = $('<p>').html('Added').hide();
-$('a[tag="<%= params[:dish_id]%>"]').after(x).hide();
-x.fadeIn(1000).delay(1000).fadeOut(1000, function(){
-	$('a[tag="<%= params[:dish_id]%>"]').show();	
-});
-
